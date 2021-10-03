@@ -1,0 +1,6 @@
+dill
+nltk
+opt_einsum
+stanza
+torch>=1.7.1
+transformers>=4.0.0

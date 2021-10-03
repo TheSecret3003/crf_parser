@@ -1,0 +1,77 @@
+2021-10-03 20:38:28 INFO 
+---------------------+-------------------------------
+Param                |             Value             
+---------------------+-------------------------------
+encoder              |              lstm             
+feat                 |            ['char']           
+n_embed              |              100              
+n_char_embed         |               50              
+n_feat_embed         |              100              
+embed_dropout        |              0.33             
+n_lstm_hidden        |              400              
+n_lstm_layers        |               3               
+encoder_dropout      |              0.33             
+n_span_mlp           |              500              
+n_label_mlp          |              100              
+mlp_dropout          |              0.33             
+lr                   |             0.002             
+mu                   |              0.9              
+nu                   |              0.9              
+eps                  |             1e-12             
+weight_decay         |               0               
+clip                 |              5.0              
+min_freq             |               2               
+fix_len              |               20              
+decay                |              0.75             
+decay_steps          |              5000             
+update_steps         |               1               
+mbr                  |             False             
+mode                 |             train             
+path                 |             model             
+device               |               0               
+seed                 |               1               
+threads              |               16              
+local_rank           |               -1              
+build                |              True             
+max_len              |              None             
+buckets              |               32              
+train                |      data/ptb/Train.clean     
+dev                  |       data/ptb/Dev.clean      
+test                 |      data/ptb/Test.clean      
+embed                |     data/glove.6B.100d.txt    
+unk                  |              unk              
+bert                 |        indobert-base-p1       
+---------------------+-------------------------------
+
+2021-10-03 20:38:28 INFO Building the fields
+2021-10-03 20:38:55 INFO Tree(
+ (words): Field(pad=<pad>, unk=<unk>, bos=<bos>, eos=<eos>, lower=True)
+ (chars): SubwordField(pad=<pad>, unk=<unk>, bos=<bos>, eos=<eos>)
+ (trees): RawField()
+ (charts): ChartField()
+)
+2021-10-03 20:38:55 INFO Building the model
+2021-10-03 20:39:07 INFO CRFConstituencyModel(
+  (word_embed): Embedding(1646, 100)
+  (char_embed): CharLSTM(81, 50, n_out=100, pad_index=0)
+  (embed_dropout): IndependentDropout(p=0.33)
+  (encoder): VariationalLSTM(200, 400, num_layers=3, bidirectional=True, dropout=0.33)
+  (encoder_dropout): SharedDropout(p=0.33, batch_first=True)
+  (span_mlp_l): MLP(n_in=800, n_out=500, dropout=0.33)
+  (span_mlp_r): MLP(n_in=800, n_out=500, dropout=0.33)
+  (label_mlp_l): MLP(n_in=800, n_out=100, dropout=0.33)
+  (label_mlp_r): MLP(n_in=800, n_out=100, dropout=0.33)
+  (span_attn): Biaffine(n_in=500, bias_x=True)
+  (label_attn): Biaffine(n_in=100, n_out=148, bias_x=True, bias_y=True)
+  (crf): CRFConstituency()
+  (criterion): CrossEntropyLoss()
+  (pretrained): Embedding(400923, 100)
+)
+
+2021-10-03 20:39:07 INFO Loading the data
+2021-10-03 20:39:08 INFO 
+train: Dataset(n_sentences=651, n_batches=651, n_buckets=32)
+dev:   Dataset(n_sentences=233, n_batches=233, n_buckets=32)
+test:  Dataset(n_sentences=146, n_batches=146, n_buckets=32)
+
+2021-10-03 20:39:08 INFO Epoch 1 / 5000:
